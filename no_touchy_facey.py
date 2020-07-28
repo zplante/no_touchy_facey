@@ -14,16 +14,14 @@ while (True):
     grey_frame = cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
     faces = haar_face_cascade.detectMultiScale(grey_frame, scaleFactor=1.1, minNeighbors=5)
     hands = HandsDetector.detect(grey_frame)
-    inter = find_intersection(faces,hands)
     img_detected = add_objects_to_image(grey_frame, hands)
     img_detected = add_objects_to_image(img_detected, faces, color=(0, 255, 0))
-    img_detected = add_objects_to_image(img_detected,inter, color=(0,0,255))
     
     cv2.destroyAllWindows()
     cv2.imshow('NO TOUCHY FACEY', cv2.cvtColor(img_detected, cv2.COLOR_RGB2BGR))
     if objects_touch(faces,hands):
         print("you did the one thing you werent suppose to")
-        #break
+        break
     if cv2.waitKey(1) == 27: 
 
             break  # esc to quit
